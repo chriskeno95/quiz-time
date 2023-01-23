@@ -20,6 +20,8 @@ let startbtn = document.getElementById("start");
 let time = document.getElementById("time");
 let timer = questions.length * 15;
 let countDownTimer;
+
+let submit = document.getElementById("submit");
 let startScreen = document.getElementById("start-screen");
 let questionScreen = document.getElementById("questions");
  let questionTitle = document.getElementById("question-title");
@@ -27,15 +29,27 @@ let questionScreen = document.getElementById("questions");
 let questionIndex = 0;
 let feedback = document.getElementById("feedback");
 
+function endQuiz(){
+    clearInterval(countDownTimer);
+    questionScreen.setAttribute("class","hide");
+
+    let end = document.getElementById("end-screen");
+    end.removeAttribute("class")
+
+    let finalScore = document.getElementById("final-score");
+    finalScore.textContent = timer;
+    
+    submit.addEventListener("click", saveScore);
 
 
+}
 
 
 // function for starting the countdown of the clock
 function countDown (){
 timer--;
 time.textContent = timer;
-if (timer == 0){
+if (timer === 0){
     endQuiz();
 }
 }
@@ -45,7 +59,6 @@ if (timer == 0){
 function displayQuestions(){
     // creating a current question value linked to the array index of my question so that i can easily increase this value in the future
     let currentQuestion = questions[questionIndex];
-    questionScreen.setAttribute("class","start");//centers the question using provided css
     questionTitle.textContent = currentQuestion.question;
 // i am using the 'forEach method' below to print a new button within the html for each question choice.
     questionChoices.innerHTML = "";
@@ -74,14 +87,18 @@ if (this.value == questions[questionIndex].answer){   feedback.setAttribute("cla
    // displayQuestions();
     setTimeout(function(){
         feedback.setAttribute("class","feedback hide")
-    }, 700);
+    }, 600);
     setTimeout(function(){
         displayQuestions()
-    }, 700);
+    }, 600);
 } else {
         feedback.setAttribute("class","feedback")
         feedback.textContent = "Wrong - try again"
         timer -= 15;
+
+        if(timer < 0){timer = 0;
+        endQuiz()}
+
         time.textContent = timer;
         setTimeout(function(){
         feedback.setAttribute("class","feedback hide")
