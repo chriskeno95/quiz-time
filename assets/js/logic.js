@@ -21,6 +21,10 @@ let time = document.getElementById("time");
 let timer = questions.length * 15;
 let countDownTimer;
 let startScreen = document.getElementById("start-screen");
+let questionScreen = document.getElementById("questions");
+ let questionTitle = document.getElementById("question-title");
+ let questionChoices = document.getElementById("choices");
+let questionIndex = 0;
 
 
 
@@ -35,10 +39,37 @@ if (timer == 0){
 }
 }
 
+function displayQuestions(){
+    let currentQuestion = questions[questionIndex];
+    questionScreen.setAttribute("class","start");//centers the question using provided css
+    questionTitle.textContent = currentQuestion.question;
+// i am using the 'forEach method' below to print a new button within the html for each question choice.
+    questionChoices.innerHTML = "";
+
+    currentQuestion.choices.forEach(function(item,index){
+        let choiceBtn = document.createElement("button");
+        choiceBtn.setAttribute("class","choice");
+        choiceBtn.setAttribute("value", item);
+
+        choiceBtn.textContent = `${index + 1}. ${item}`
+
+        
+        questionChoices.append(choiceBtn);
+      
+    })
+
+
+}
 
 function startQuiz(){
     countDownTimer = setInterval(countDown, 1000)
     time.textContent = timer;
+    startScreen.setAttribute("class","hide"); //hide the start screen so that questions can be displayed.
+
+    questionScreen.removeAttribute("class","hide");//remove hide class from questions id
+
+    displayQuestions();
+
 }
 
 
