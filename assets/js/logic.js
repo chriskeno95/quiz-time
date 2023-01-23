@@ -25,6 +25,7 @@ let questionScreen = document.getElementById("questions");
  let questionTitle = document.getElementById("question-title");
  let questionChoices = document.getElementById("choices");
 let questionIndex = 0;
+let feedback = document.getElementById("feedback");
 
 
 
@@ -39,7 +40,10 @@ if (timer == 0){
 }
 }
 
+
+
 function displayQuestions(){
+    // creating a current question value linked to the array index of my question so that i can easily increase this value in the future
     let currentQuestion = questions[questionIndex];
     questionScreen.setAttribute("class","start");//centers the question using provided css
     questionTitle.textContent = currentQuestion.question;
@@ -55,10 +59,38 @@ function displayQuestions(){
 
         
         questionChoices.append(choiceBtn);
+        choiceBtn.addEventListener("click", userChoice);
       
     })
 
 
+}
+
+function userChoice(){
+//console.log(this.value);
+if (this.value == questions[questionIndex].answer){   feedback.setAttribute("class", "feedback")
+    feedback.textContent = "correct!"
+    questionIndex++;
+   // displayQuestions();
+    setTimeout(function(){
+        feedback.setAttribute("class","feedback hide")
+    }, 700);
+    setTimeout(function(){
+        displayQuestions()
+    }, 700);
+} else {
+        feedback.setAttribute("class","feedback")
+        feedback.textContent = "Wrong - try again"
+        timer -= 15;
+        time.textContent = timer;
+        setTimeout(function(){
+        feedback.setAttribute("class","feedback hide")
+    }, 1000);
+}
+
+if (questionIndex === questions.length){
+    endQuiz();
+}
 }
 
 function startQuiz(){
