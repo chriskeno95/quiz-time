@@ -3,7 +3,7 @@ This is my attempt at building the code quiz task set in week 6 of my front end 
 
 ## Description
 
-In this challenge i had to use Javascript to create a quiz that contained a countdown timer when the quiz began. it would then deduct time from the countdown if you answered a question wrong.
+In this challenge i had to use Javascript to create a quiz that contained a countdown timer when the quiz began. it would then deduct time from the countdown if you answered a question wrong. At the end of the quiz you would then enter your initials and save your results to the local storage.
 
 To begin I created my relevant js. files and started outlining my pseudocode to breakdown what i wanted to do. Firstly i created my questions array that contained objects that contained a question, choices and an answer.
 
@@ -27,11 +27,12 @@ No need to install anything to view this project; you can view it [here]()
 
 ## Screenshots
 
-![screenshot](./images/screenshot001.png)
-![screenshot](./images/screenshot002.png)
-![screenshot](./images/screenshot003.png)
-![screenshot](./images/screenshot004.png)
-![screenshot](./images/screenshot005.png)
+![screenshot](./assets/images/screenshot-1.png)
+![screenshot](./assets/images/screenshot-2.png)
+![screenshot](./assets/images/screenshot-3.png)
+![screenshot](./assets/images/screenshot-4.png)
+![screenshot](./assets/images/screenshot-5.png)
+![screenshot](./assets/images/screenshot-6.png)
 
 ## License
 
