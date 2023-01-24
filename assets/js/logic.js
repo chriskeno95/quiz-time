@@ -29,6 +29,36 @@ let questionScreen = document.getElementById("questions");
 let questionIndex = 0;
 let feedback = document.getElementById("feedback");
 
+
+function saveScore(){
+let initialsForm = document.getElementById("initials");
+
+let initials = initialsForm.value.trim();
+
+if(initials !== ""){
+        let highScores = JSON.parse(localStorage.getItem("highscores")) || [];
+        let newScore = {
+            score: timer,
+            initials: initials
+        }
+        highScores.push(newScore);
+
+        localStorage.setItem("highscores", JSON.stringify(highScores));
+
+        window.location.href = "highscores.html";
+    }
+}
+
+function checkForEnter(event){
+    if(event.key === "Enter") {
+        saveScore();
+    }
+
+}
+
+
+
+
 function endQuiz(){
     clearInterval(countDownTimer);
     questionScreen.setAttribute("class","hide");
@@ -38,14 +68,12 @@ function endQuiz(){
 
     let finalScore = document.getElementById("final-score");
     finalScore.textContent = timer;
-    
-    submit.addEventListener("click", saveScore);
 
 
 }
 
 
-// function for starting the countdown of the clock
+// function for starting the countdown of the clock, for for terminating it if it reaches zero. it will the run the end quiz if this happens
 function countDown (){
 timer--;
 time.textContent = timer;
@@ -60,7 +88,7 @@ function displayQuestions(){
     // creating a current question value linked to the array index of my question so that i can easily increase this value in the future
     let currentQuestion = questions[questionIndex];
     questionTitle.textContent = currentQuestion.question;
-// i am using the 'forEach method' below to print a new button within the html for each question choice.
+// i am using the 'forEach method' below to print a new button within the html for each question choice. I am then setting the value to be the same as the choice so that i can see if this matches the questions correct answer
     questionChoices.innerHTML = "";
 
     currentQuestion.choices.forEach(function(item,index){
@@ -70,7 +98,7 @@ function displayQuestions(){
 
         choiceBtn.textContent = `${index + 1}. ${item}`
 
-        
+        //the code below displays the buttons and adds an event listener to log the users choice
         questionChoices.append(choiceBtn);
         choiceBtn.addEventListener("click", userChoice);
       
@@ -83,8 +111,8 @@ function userChoice(){
 //console.log(this.value);
 if (this.value == questions[questionIndex].answer){   feedback.setAttribute("class", "feedback")
     feedback.textContent = "correct!"
-    questionIndex++;
-   // displayQuestions();
+    questionIndex++; // if correct the next question is displayed
+   
     setTimeout(function(){
         feedback.setAttribute("class","feedback hide")
     }, 600);
@@ -104,7 +132,7 @@ if (this.value == questions[questionIndex].answer){   feedback.setAttribute("cla
         feedback.setAttribute("class","feedback hide")
     }, 1000);
 }
-
+//this code below stops the quiz once the user has answered all the questions
 if (questionIndex === questions.length){
     endQuiz();
 }
@@ -115,7 +143,7 @@ function startQuiz(){
     time.textContent = timer;
     startScreen.setAttribute("class","hide"); //hide the start screen so that questions can be displayed.
 
-    questionScreen.removeAttribute("class","hide");//remove hide class from questions id
+    questionScreen.removeAttribute("class","hide");//remove hide class from questions id so that the questions become visable
 
     displayQuestions();
 
@@ -124,3 +152,6 @@ function startQuiz(){
 
 //add event listener to start button - this will be used to start the quiz (start timer and reveal questions)
 startbtn.addEventListener("click", startQuiz);
+
+//this code stars the save score function when the submit button is clicked.
+submit.addEventListener("click", saveScore);
