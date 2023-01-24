@@ -4,7 +4,7 @@
 // ------- pseudo code ------------------------//
 //step1: when i press start quiz, the timer will count down and the first screen will be hidden. I will then see displayed the first question in the quiz and its choices.
 
-//step2: when i click a choice it will say either "correct" or "wrong" - if wrong, 10 seconds will come off the timer; if correct the screen will be hidden and the next question and choices will appear. 
+//step2: when i click a choice it will say either "correct" or "wrong" - if wrong, 15 seconds will come off the timer; if correct the screen will be hidden and the next question and choices will appear. 
 
 //step3: this process repeats until the quiz is over or until the timer counts down to zero.
 
